@@ -30,6 +30,15 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
+        val properties = Properties()
+        properties.load(project.rootProject.file("local.properties").inputStream())
+
+        val supabaseUrl = properties.getProperty("supabase.url")
+        buildConfigField("String", "SUPABASE_URL", supabaseUrl)
+
+        val supabaseKey = properties.getProperty("supabase.key")
+        buildConfigField("String", "SUPABASE_KEY", supabaseKey)
     }
 
     buildTypes {
@@ -49,8 +58,10 @@ android {
         jvmTarget = "11"
     }
     buildFeatures {
+        buildConfig = true
         compose = true
     }
+
 }
 
 dependencies {

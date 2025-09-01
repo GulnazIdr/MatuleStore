@@ -1,6 +1,7 @@
 package com.example.matulegulnaz.di
 
 import android.content.Context
+import com.example.matulegulnaz.BuildConfig
 import com.example.matulegulnaz.data.database.local.LocalSneakerDao
 import com.example.matulegulnaz.data.database.local.MatuleDatabase
 import dagger.Module
@@ -35,8 +36,8 @@ class CommonModule {
     @Singleton
     fun provideSupabaseClient(): SupabaseClient {
         return createSupabaseClient(
-            supabaseUrl = "https://mhrdhgnmwhlremzorskz.supabase.co",
-            supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1ocmRoZ25td2hscmVtem9yc2t6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTQ3MjA1MDIsImV4cCI6MjA3MDI5NjUwMn0.QGGC92wxTFPg0ferQYdTYq5yGNgRA3tV7KjKLKex2_E"
+            supabaseUrl = BuildConfig.SUPABASE_URL,
+            supabaseKey = BuildConfig.SUPABASE_KEY
         ) {
             install(Auth)
             install(Postgrest)
