@@ -36,14 +36,13 @@ class CommonModule {
     @Singleton
     fun provideSupabaseClient(): SupabaseClient {
         return createSupabaseClient(
-            supabaseUrl = BuildConfig.SUPABASE_URL,
-            supabaseKey = BuildConfig.SUPABASE_KEY
+            supabaseUrl = "https://mhrdhgnmwhlremzorskz.supabase.co",
+            supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1ocmRoZ25td2hscmVtem9yc2t6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTQ3MjA1MDIsImV4cCI6MjA3MDI5NjUwMn0.QGGC92wxTFPg0ferQYdTYq5yGNgRA3tV7KjKLKex2_E"
         ) {
             install(Auth)
             install(Postgrest)
             defaultSerializer = KotlinXSerializer()
         }
     }
-
 
 }

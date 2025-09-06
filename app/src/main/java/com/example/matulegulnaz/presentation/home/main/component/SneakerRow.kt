@@ -24,14 +24,11 @@ fun SneakerRow(
     Box(
         modifier = modifier
     ){
-        Row(
-            modifier = Modifier
-                .padding(start = 16.dp, end = 20.dp)
-        ) {
+        Row {
             if(popularList.isNotEmpty()) {
                 with(popularList.first()) {
                     CardItem(
-                        onFavorite = { onFavorite(this.id) },
+                        onFavorite = { onFavorite(id) },
                         onAddToCart = { onAddToCart(id) },
                         onCard = { onCard(id) },
                         sneakerInfo = this,

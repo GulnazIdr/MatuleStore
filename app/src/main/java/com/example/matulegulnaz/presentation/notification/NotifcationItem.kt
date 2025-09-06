@@ -1,7 +1,5 @@
 package com.example.matulegulnaz.presentation.notification
 
-import android.os.Build
-import androidx.annotation.RequiresApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -16,14 +14,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.matulegulnaz.domain.notification.NotificationInfo
 import com.example.matulegulnaz.ui.theme.darkGrey2
 import com.example.matulegulnaz.ui.theme.mainButtonColor
 import com.example.matulegulnaz.ui.theme.profileGrey
-import kotlinx.datetime.toKotlinLocalDateTime
 
 @Composable
 fun NotificationItem(
@@ -38,9 +34,7 @@ fun NotificationItem(
             .background(color = profileGrey)
             .padding(16.dp)
     ) {
-        Column(
-
-        ) {
+        Column {
             // TODO: font family masivia
             Text(
                 text = notificationInfo.title,
@@ -69,11 +63,15 @@ fun NotificationItem(
     }
 }
 
-@RequiresApi(Build.VERSION_CODES.O)
-@Preview
-@Composable
-private fun NotificationItemPreview() {
-    NotificationItem(
-         notificationInfo = NotificationInfo("Title", "Text", java.time.LocalDateTime.now().toKotlinLocalDateTime()
-    ))
-}
+//@RequiresApi(Build.VERSION_CODES.O)
+//@Preview
+//@Composable
+//private fun NotificationItemPreview() {
+//    NotificationItem(
+//         notificationInfo = NotificationInfo(
+//             "Title",
+//             "Text",
+//             java.time.LocalDateTime.now().toKotlinLocalDateTime(),
+//             false
+//    ))
+//}

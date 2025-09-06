@@ -4,7 +4,8 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class RemoteCartDto (
-    val userId: Int,
-    val sneakerId: Int,
+    val id: Int? = null,
+    val user_id: String,
+    val sneaker_id: Int,
     val amount: Int
 )

@@ -37,7 +37,7 @@ fun ForgotPasswordScreen(
     forgotPasswordViewModel: ForgotPasswordViewmodel = hiltViewModel(),
     modifier: Modifier = Modifier
 ) {
-    var email by remember { mutableStateOf("gulnazidrisova91@gmail.com") }
+    var email by remember { mutableStateOf("") }
     var modalWindowOpened = remember {forgotPasswordViewModel.modalWindowState}
 
     val snackBarHostState = remember { SnackbarHostState() }

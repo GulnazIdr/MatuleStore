@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -21,6 +22,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.ui.window.Dialog
 import com.example.matulegulnaz.R
 import com.example.matulegulnaz.presentation.components.NavigationButton
 import com.example.matulegulnaz.ui.theme.lightBlue
@@ -33,47 +35,52 @@ fun SuccessOrderModalWindow(
     navigateToStore: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    Box(
-        modifier = modifier
-            .clip(RoundedCornerShape(20.dp))
-            .height(375.dp)
-            .width(335.dp)
-            .background(color = lightThemeSurfaceColor)
+    Dialog(
+        onDismissRequest = {navigateToStore()}
     ) {
-        Column(
-            modifier = Modifier.align(Alignment.Center),
-            horizontalAlignment = Alignment.CenterHorizontally
+        Box(
+            modifier = modifier
+                .clip(RoundedCornerShape(20.dp))
+                .height(375.dp)
+                .width(335.dp)
+                .background(color = lightThemeSurfaceColor)
         ) {
-            Box(
-                modifier.clip(RoundedCornerShape(100.dp)).size(134.dp).background(color = lightBlue)
+            Column(
+                modifier = Modifier.align(Alignment.Center),
+                horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                Image(
-                    painter = painterResource(R.drawable.img),
-                    contentDescription = "",
-                    modifier = Modifier.size(86.dp).align(Alignment.Center)
+                Box(
+                    modifier.clip(RoundedCornerShape(100.dp)).size(134.dp)
+                        .background(color = lightBlue)
+                ) {
+                    Image(
+                        painter = painterResource(R.drawable.img),
+                        contentDescription = "",
+                        modifier = Modifier.size(86.dp).align(Alignment.Center)
+                    )
+                }
+
+                Spacer(modifier = Modifier.height(24.dp))
+
+                Text(
+                    text = "Your order was successfull",
+                    fontFamily = ralewayFamily,
+                    fontWeight = FontWeight.W500,
+                    lineHeight = 28.sp,
+                    fontSize = 20.sp,
+                    color = mainButtonColor,
+                    modifier = Modifier.width(159.dp),
+                    textAlign = TextAlign.Center
+                )
+
+                Spacer(modifier = Modifier.height(30.dp))
+
+                NavigationButton(
+                    text = "Go back",
+                    onAction = { navigateToStore() },
+                    modifier = Modifier.fillMaxWidth().padding(horizontal = 50.dp)
                 )
             }
-
-            Spacer(modifier = Modifier.height(24.dp))
-
-            Text(
-                text = "Your order was successfull",
-                fontFamily = ralewayFamily,
-                fontWeight = FontWeight.W500,
-                lineHeight = 28.sp,
-                fontSize = 20.sp,
-                color = mainButtonColor,
-                modifier = Modifier.width(159.dp),
-                textAlign = TextAlign.Center
-            )
-
-            Spacer(modifier = Modifier.height(30.dp))
-
-            NavigationButton(
-                text = "Go back",
-                onAction = { navigateToStore() },
-                modifier = Modifier.fillMaxWidth()
-            )
         }
     }
 }

@@ -4,6 +4,7 @@ import com.example.matulegulnaz.data.common.BaseRepository
 import com.example.matulegulnaz.data.database.local.CartFetchContent
 import com.example.matulegulnaz.data.database.local.CategoryFetchContent
 import com.example.matulegulnaz.domain.order.OrderInfo
+import com.example.matulegulnaz.domain.order.OrderWithProductInfo
 import com.example.matulegulnaz.domain.product.SneakerRepository
 import com.example.matulegulnaz.domain.result.FetchResult
 import io.github.jan.supabase.SupabaseClient
@@ -43,11 +44,15 @@ class SneakerRepositoryImpl @Inject constructor(
         return  getRepository().changeFavoriteState(sneakerId)
     }
 
-    override suspend fun fetchOrderContent(): FetchResult<List<OrderInfo>> {
-        TODO("Not yet implemented")
+    override suspend fun fetchOrderContent(): FetchResult<List<OrderWithProductInfo>> {
+        return getRepository().fetchOrderContent()
     }
 
-    override suspend fun addToOrderList(): FetchResult<Int> {
-        TODO("Not yet implemented")
+    override suspend fun addToOrderList(order: OrderInfo): FetchResult<Int> {
+        return getRepository().addToOrderList(order)
+    }
+
+    override suspend fun getOrderById(id: Int): FetchResult<OrderWithProductInfo> {
+        return getRepository().getOrderById(id)
     }
 }

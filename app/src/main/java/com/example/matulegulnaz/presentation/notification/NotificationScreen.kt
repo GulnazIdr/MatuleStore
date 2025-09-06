@@ -11,25 +11,27 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.matulegulnaz.domain.notification.NotificationInfo
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.matulegulnaz.presentation.components.CommonScaffold
 import com.example.matulegulnaz.presentation.components.CustomTopAppBar
-import kotlinx.datetime.toKotlinLocalDateTime
+import com.example.matulegulnaz.presentation.home.main.component.CircleLoading
 
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun NotificationScreen(
-    notifList: List<NotificationInfo> = listOf(
-        NotificationInfo("Title", "Text", java.time.LocalDateTime.now().toKotlinLocalDateTime())
-    ),
     onBack: () -> Unit,
+    notificationViewmodel: NotificationViewmodel = hiltViewModel(),
     modifier: Modifier = Modifier
 ) {
     val snackbarHostState = remember { SnackbarHostState() }
+    val fetchContentState = notificationViewmodel.fetchContentRes.collectAsState().value
+    val updateNotificationState =
+        notificationViewmodel.updateNotificationState.collectAsState().value
 
     BackHandler { onBack() }
 
@@ -45,13 +47,21 @@ fun NotificationScreen(
 
                 Spacer(modifier = Modifier.height(40.dp))
 
-                LazyColumn(verticalArrangement = Arrangement.spacedBy(12.dp)) {
-                    items(notifList.size) { item ->
-                        NotificationItem(
-                            notificationInfo = notifList[item]
-                        )
-                    }
-                }
+                fetchContentState.Display(
+                    onSuccess = {
+                        LazyColumn(verticalArrangement = Arrangement.spacedBy(12.dp)) {
+                            items(it.size) { item ->
+                                NotificationItem(
+                                    notificationInfo = it[item]
+                                )
+                            }
+                        }
+                    },
+                    onError = {},
+                    onLoading = { CircleLoading() },
+                    onChangeButtonState = {},
+                    snackbarHostState
+                )
             }
         }
     }

@@ -68,7 +68,6 @@ fun CardItem(
             ) {
                 CustomRoundedButton(
                     onAction = {
-                        Log.d("CLICK", "Favorite button clicked for ${sneakerInfo.id}")
                         onFavorite(sneakerInfo.id)
                     },
                     size = 28.dp,

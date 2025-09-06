@@ -84,8 +84,8 @@ fun CatalogScreen(
                         ) {
                             items(sneakers.size) { sneakerId ->
                                 CardItem(
-                                    onFavorite = {sneakerViewModel::changeFavoriteState},
-                                    onAddToCart = {sneakerViewModel::addToCart},
+                                    onFavorite = {id -> sneakerViewModel.changeFavoriteState(id)},
+                                    onAddToCart = {id -> sneakerViewModel.addToCart(id)},
                                     onCard = {onCard(sneakerId)},
                                     sneakerInfo = sneakers[sneakerId],
                                     cornerImage = R.drawable.ic_increment,

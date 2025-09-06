@@ -1,5 +1,7 @@
 package com.example.matulegulnaz.presentation.common
 
+import android.util.Log
+import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.matulegulnaz.data.database.local.CategoryFetchContent
@@ -66,6 +68,9 @@ class SneakerViewModel @Inject constructor(
         viewModelScope.launch {
             val result = sneakerRepository.changeAmount(sneakerId, amount)
             _changeAmountState.value = result.map(FetchResultMapper())
+//            if(_changeAmountState.value is FetchResultUiState.Success){
+//                // TODO: update ui
+//            }
         }
     }
 

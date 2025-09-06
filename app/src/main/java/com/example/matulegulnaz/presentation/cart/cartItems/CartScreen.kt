@@ -14,7 +14,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
@@ -29,7 +28,6 @@ import com.example.matulegulnaz.presentation.home.main.component.CircleLoading
 import com.example.matulegulnaz.ui.theme.lightThemeSurfaceColor
 import com.example.matulegulnaz.ui.theme.poppinsFamily
 import com.example.matulegulnaz.ui.theme.superDarkBlue
-import kotlinx.coroutines.launch
 
 @Composable
 fun CartScreen(
@@ -83,66 +81,68 @@ fun CartScreen(
                 .background(lightThemeSurfaceColor)
                 .padding(padding)
         ) {
-            Column {
-                Column(
-                    modifier = Modifier.padding(20.dp)
-                ) {
-                    CustomTopAppBar(
-                        onBack = { onBack() },
-                        title = "Cart"
-                    )
 
-                    fetchContentResult.Display(
-                        onSuccess = {
-                            val cartProducts = it.sneakers.filter { it.amount != 0 }
-                            Text(
-                                text = "${cartProducts.size} items",
-                                fontFamily = poppinsFamily,
-                                fontWeight = FontWeight.W500,
-                                fontSize = 16.sp,
-                                color = superDarkBlue,
-                                modifier = Modifier.padding(top = 16.dp, bottom = 8.dp)
-                            )
+            Column(
+                modifier = Modifier.padding(20.dp)
+            ) {
+                CustomTopAppBar(
+                    onBack = { onBack() },
+                    title = "Cart"
+                )
 
-                            LazyColumn {
-                                items(cartProducts.size) { index ->
-                                    CartItemAction(
-                                        sneakerInfo = cartProducts[index],
-                                        onInc = {
-                                            productViewmodel.changeAmount(
-                                                index, cartProducts[index].amount.inc()
-                                            )
-                                        },
-                                        onDec = {
-                                            productViewmodel.changeAmount(
-                                                index, cartProducts[index].amount.dec()
-                                            )
-                                        },
-                                        onDelete = {
-                                            productViewmodel.deleteFromCart(index)
-                                        }
-                                    ) {
-                                        CartItem(
-                                            sneakerInfo = cartProducts[index]
+                fetchContentResult.Display(
+                    onSuccess = {
+                        val cartProducts = it.sneakers.filter { it.amount != 0 }
+                        Text(
+                            text = "${cartProducts.sumOf { it.amount }} items",
+                            fontFamily = poppinsFamily,
+                            fontWeight = FontWeight.W500,
+                            fontSize = 16.sp,
+                            color = superDarkBlue,
+                            modifier = Modifier.padding(top = 16.dp, bottom = 8.dp)
+                        )
+
+                        LazyColumn(modifier = Modifier.weight(4f)) {
+                            items(cartProducts.size) { index ->
+                                CartItemAction(
+                                    amount = cartProducts[index].amount,
+                                    onInc = {
+                                        productViewmodel.changeAmount(
+                                            index, cartProducts[index].amount.inc()
                                         )
+                                    },
+                                    onDec = {
+                                        productViewmodel.changeAmount(
+                                            index, cartProducts[index].amount.dec()
+                                        )
+                                    },
+                                    onDelete = {
+                                        productViewmodel.deleteFromCart(index)
                                     }
+                                ) {
+                                    CartItem(
+                                        sneakerInfo = cartProducts[index]
+                                    )
                                 }
                             }
+                        }
 
-                            CartResult(
-                                productsPrice = cartProducts.sumOf { it.amount * it.price  },
-                                delivery = 10.0,
-                                modifier = Modifier.padding(bottom = 32.dp),
-                                onOrderButton = {  navigateToOrder() }
-                            )
-                        },
-                        onError = {},
-                        onLoading = { CircleLoading() },
-                        onChangeButtonState = {},
-                        snackbarHostState = snackbarHostState
-                    )
-                }
+                        CartResult(
+                            productsPrice = cartProducts.sumOf { it.amount * it.price },
+                            delivery = 10.0,
+                            modifier = Modifier
+                                .weight(2.3f),
+                            onOrderButton = { navigateToOrder() }
+                        )
+
+                    },
+                    onError = {},
+                    onLoading = { CircleLoading() },
+                    onChangeButtonState = {},
+                    snackbarHostState = snackbarHostState
+                )
             }
+
         }
     }
 }

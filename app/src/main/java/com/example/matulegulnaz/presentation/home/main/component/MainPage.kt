@@ -62,7 +62,6 @@ fun MainPage(
             )
 
             fetchResultState.Display(
-
                 onSuccess = {
                     CategoryHeader(
                         onSeeAllClick = {}
@@ -89,7 +88,7 @@ fun MainPage(
                         popularList = it.sneakers,
                         onFavorite = { id -> sneakerViewModel.changeFavoriteState(id)  },
                         onCard = { onCard(it) },
-                        onAddToCart = { sneakerViewModel::addToCart }
+                        onAddToCart = { id -> sneakerViewModel.addToCart(id) }
                     )
                 },
 

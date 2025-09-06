@@ -245,20 +245,30 @@ fun NavigationGraph(
         composable<OrderScreen> {
             OrderScreen(
                 onBack = {navigateAndPop(MainScreen, OrderScreen)},
-                onCard = {navigateAndPop(OrderItemScreen, OrderScreen)}
+                onCard = {navigateAndPop(OrderItemScreen(it), OrderScreen)}
             )
         }
 
-//        composable<OrderItemScreen> {
-//            ProductOrderInfoScreen(
-//                onBack = {navigateAndPop(OrderScreen, OrderItemScreen)}
-//            )
-//        }
+        composable<OrderItemScreen> {
+            val args = it.toRoute<Int>()
+            ProductOrderInfoScreen(
+                orderId = args,
+                onBack = {navigateAndPop(OrderScreen, OrderItemScreen(args))}
+            )
+        }
 
         composable<NotificationScreen> {
             NotificationScreen(
                 onBack = {navigateAndPop(MainScreen, NotificationScreen)}
             )
         }
+
+//        composable<Favorite> {
+//            FavoriteScreen(
+//                // TODO: popupto
+//                onBack = {navController.navigateTo(MainPage)},
+//                onCard = {onCard(it)}
+//            )
+//        }
     }
 }

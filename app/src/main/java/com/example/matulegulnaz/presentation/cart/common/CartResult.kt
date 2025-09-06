@@ -44,7 +44,7 @@ fun CartResult(
     val dash = with(LocalDensity.current) {6.dp.toPx()}
 
     Box(
-        modifier = modifier.fillMaxSize()
+        modifier = modifier.fillMaxSize().padding(bottom = 32.dp)
     ) {
         Column(
             Modifier

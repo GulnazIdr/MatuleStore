@@ -52,7 +52,7 @@ class SearchRepositoryImpl @Inject constructor(
                .associateBy {it.productId}
 
            val amounts = supabaseClient.from("cart")
-               .select{ filter { RemoteCartDto::userId eq user.id }}
+               .select{ filter { RemoteCartDto::user_id eq user.id }}
                .decodeList<RemoteCartDto>()
 
            val searchedDto = supabaseClient.from("sneaker")

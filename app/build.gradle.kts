@@ -71,10 +71,9 @@ dependencies {
     implementation("com.google.dagger:hilt-android:2.56.2")
     kapt("com.google.dagger:hilt-android-compiler:2.56.2")
     implementation("androidx.hilt:hilt-navigation-compose:1.2.0")
-
-    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.8.1")
-
     kapt("androidx.hilt:hilt-compiler:1.2.0")
+
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.8.1") //its twice
 
     implementation("androidx.datastore:datastore-preferences:1.1.7")
 

@@ -4,6 +4,7 @@ import com.example.matulegulnaz.data.database.local.CategoryFetchContent
 import com.example.matulegulnaz.data.database.local.LocalMapper
 import com.example.matulegulnaz.data.database.local.LocalSneakerDao
 import com.example.matulegulnaz.domain.order.OrderInfo
+import com.example.matulegulnaz.domain.order.OrderWithProductInfo
 import com.example.matulegulnaz.domain.product.SneakerRepository
 import com.example.matulegulnaz.domain.result.FetchResult
 import javax.inject.Inject
@@ -41,21 +42,15 @@ class LocalSneakerRepository @Inject constructor(
         return FetchResult.Success(sneakerId)
     }
 
-    override suspend fun fetchOrderContent(): FetchResult<List<OrderInfo>> {
+    override suspend fun fetchOrderContent(): FetchResult<List<OrderWithProductInfo>> {
         TODO("Not yet implemented")
     }
 
-    override suspend fun addToOrderList(): FetchResult<Int> {
+    override suspend fun addToOrderList(order: OrderInfo): FetchResult<Int> {
         TODO("Not yet implemented")
     }
 
-//    override suspend fun addToOrderList(): FetchResult {
-//
-//        return TODO("Provide the return value")
-//    }
-//
-//    override suspend fun deleteFromOrderList(): FetchResult {
-//        return TODO("Provide the return value")
-//    }
-
+    override suspend fun getOrderById(id: Int): FetchResult<OrderWithProductInfo> {
+        TODO("Not yet implemented")
+    }
 }

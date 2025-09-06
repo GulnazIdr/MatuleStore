@@ -1,5 +1,6 @@
 package com.example.matulegulnaz.base.navigation
 
+import com.example.matulegulnaz.base.bottom.BottomDestination
 import kotlinx.serialization.Serializable
 
 interface Destination
@@ -65,8 +66,11 @@ data object OrderScreen: Destination
 data object CartOrderScreen: Destination
 
 @Serializable
-data object OrderItemScreen: Destination
+data class OrderItemScreen(val orderId: Int): Destination
 
 @Serializable
 data object NotificationScreen: Destination
+
+@Serializable
+data object Favorite: BottomDestination
 

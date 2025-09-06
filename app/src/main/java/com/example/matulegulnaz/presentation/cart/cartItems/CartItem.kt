@@ -40,7 +40,6 @@ fun CartItem(
                 modifier = Modifier.fillMaxWidth().padding(10.dp),
                 verticalAlignment = Alignment.CenterVertically
             ) {
-
                 CartProductBlock(
                     img = sneakerInfo.image
                 )
@@ -57,7 +56,7 @@ fun CartItem(
                         color = superDarkBlue
                     )
                     Text(
-                        text = sneakerInfo.price.toString(),
+                        text = "$${sneakerInfo.price}",
                         fontFamily = poppinsFamily,
                         fontWeight = FontWeight.W500,
                         fontSize = 14.sp,
@@ -65,6 +64,7 @@ fun CartItem(
                         modifier = Modifier.padding(top = 6.dp)
                     )
                 }
+
             }
         }
     }
@@ -75,6 +75,7 @@ fun CartItem(
 private fun CartItemPreview() {
     CartItem(
         sneakerInfo =  SneakerInfo(
+            id = 0,
             descr = "",
             name = "Nike air max 270 essential",
             price = 179.39,

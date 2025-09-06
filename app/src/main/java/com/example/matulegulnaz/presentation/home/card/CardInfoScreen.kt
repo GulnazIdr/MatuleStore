@@ -1,6 +1,5 @@
 package com.example.matulegulnaz.presentation.home.card
 
-import android.util.Log
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -83,7 +82,6 @@ fun CardInfoScreen(
     val scope = rememberCoroutineScope()
 
     val fetchResultState = sneakerViewModel.fetchResultState.collectAsState().value
-    val addToCartRes = sneakerViewModel.addToCartResult.collectAsState().value
 
     var currentIndex by remember { mutableIntStateOf(sneakerId) }
     var changeXState by remember { mutableIntStateOf(0) }
@@ -138,7 +136,6 @@ fun CardInfoScreen(
 
                             var signChanger = -0.001 * (changeXState - 410)
                             if (signChanger < 0)  sliderModifierRotationState *= -1
-                            Log.d("CURRENT INDEX", signChanger.toString())
 
                             if(it.sneakers.isNotEmpty()) currentIndex = when (changeXState) {
                                 in 820..width.toInt() ->
@@ -291,7 +288,7 @@ fun CardInfoScreen(
                 }
 
                 CustomRoundedButton(
-                    onAction = {sneakerViewModel::changeFavoriteState},
+                    onAction = {sneakerViewModel.changeFavoriteState(sneakerId)},
                     painterResource = R.drawable.heart_empty,
                     backgroundColor = middleGrey,
                     modifier = Modifier
@@ -302,7 +299,7 @@ fun CardInfoScreen(
                 NavigationButton(
                     text = "Add to cart",
                     icon = R.drawable.cart,
-                    onAction = {sneakerViewModel::addToCart},
+                    onAction = {sneakerViewModel.addToCart(sneakerId)},
                     modifier = modifier
                         .padding(bottom = 40.dp)
                         .width(208.dp)
@@ -358,6 +355,6 @@ private fun CardInfoScreenPreview() {
     CardInfoScreen(
         sneakerId = 1,
         onBackPressed = {},
-        navigateToCart = {}
+        navigateToCart = {},
     )
 }

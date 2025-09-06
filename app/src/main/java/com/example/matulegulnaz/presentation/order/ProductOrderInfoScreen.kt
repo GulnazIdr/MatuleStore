@@ -23,7 +23,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.matulegulnaz.R
-import com.example.matulegulnaz.domain.order.OrderInfo
 import com.example.matulegulnaz.presentation.cart.common.CartUserInfoComponent
 import com.example.matulegulnaz.presentation.cart.common.OrderViewmodel
 import com.example.matulegulnaz.presentation.cart.common.ProductOrderItem
@@ -35,13 +34,18 @@ import com.example.matulegulnaz.ui.theme.poppinsFamily
 
 @Composable
 fun ProductOrderInfoScreen(
-    orderInfo: OrderInfo,
+    orderId: Int,
     onBack: () -> Unit,
     orderViewmodel: OrderViewmodel = hiltViewModel(),
     modifier: Modifier = Modifier
 ) {
     val snackbarHostState = remember { SnackbarHostState() }
     val fetchUserRes = orderViewmodel.fetchUserDataState.collectAsState().value
+    val fetchOrderById = orderViewmodel.fetchOrderById.collectAsState().value
+
+    LaunchedEffect(Unit) {
+        orderViewmodel.getOrderById(orderId)
+    }
 
     BackHandler { onBack() }
 
@@ -50,27 +54,43 @@ fun ProductOrderInfoScreen(
             modifier = modifier.padding(padding)
         ) {
             Column(modifier = Modifier.padding(horizontal = 20.dp)) {
+                fetchOrderById.Display(
+                    onSuccess = { orderInfo ->
+                        CustomTopAppBar(
+                            onBack = { onBack() },
+                            title = "${orderInfo.product?.id}"
+                        )
 
-                CustomTopAppBar(
-                    onBack = {onBack()},
-                    title = "${orderInfo.sneakerInfo.id}"
-                )
+                        Text(
+                            text = orderInfo.order.time.toString(),
+                            fontFamily = poppinsFamily,
+                            fontWeight = FontWeight.W500,
+                            fontSize = 14.sp,
+                            color = darkGrey,
+                            lineHeight = 20.sp,
+                            modifier = Modifier.align(Alignment.End)
+                        )
 
-                Text(
-                    text = orderInfo.time.toString(),
-                    fontFamily = poppinsFamily,
-                    fontWeight = FontWeight.W500,
-                    fontSize = 14.sp,
-                    color = darkGrey,
-                    lineHeight = 20.sp,
-                    modifier = Modifier.align(Alignment.End)
-                )
+                        Spacer(modifier = Modifier.height(17.dp))
 
-                Spacer(modifier = Modifier.height(17.dp))
+                        ProductOrderItem(
+                            orderInfo = orderInfo,
+                            isInOrderList = true
+                        )
+                    },
+                    onError = {
+                        LaunchedEffect(Unit) {
+                            snackbarHostState.showSnackbar(
+                                message = "Something went wrong.",
+                                withDismissAction = true,
+                                duration = SnackbarDuration.Short
+                            )
+                        }
+                    },
+                    onLoading = { CircleLoading() },
+                    onChangeButtonState = {},
+                    snackbarHostState
 
-                ProductOrderItem(
-                    orderInfo = orderInfo,
-                    isInOrderList = true
                 )
 
                 Spacer(modifier = Modifier.height(12.dp))

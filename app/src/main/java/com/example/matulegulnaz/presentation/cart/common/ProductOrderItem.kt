@@ -21,7 +21,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.matulegulnaz.domain.order.OrderInfo
+import com.example.matulegulnaz.domain.order.OrderWithProductInfo
 import com.example.matulegulnaz.ui.theme.darkGrey
 import com.example.matulegulnaz.ui.theme.mainButtonColor
 import com.example.matulegulnaz.ui.theme.middleBlue
@@ -30,7 +30,7 @@ import com.example.matulegulnaz.ui.theme.ralewayFamily
 
 @Composable
 fun ProductOrderItem(
-    orderInfo: OrderInfo,
+    orderInfo: OrderWithProductInfo?,
     isInOrderList: Boolean = false,
     modifier: Modifier = Modifier
 ) {
@@ -44,7 +44,7 @@ fun ProductOrderItem(
     ) {
         Row{
             CartProductBlock(
-                img = orderInfo.sneakerInfo.image
+                img = orderInfo?.product?.image
             )
 
             Spacer(modifier = Modifier.width(15.dp))
@@ -59,7 +59,7 @@ fun ProductOrderItem(
                             horizontalArrangement = Arrangement.SpaceBetween
                         ) {
                             Text(
-                                text = "№ ${orderInfo.sneakerInfo.id}",
+                                text = "№ ${orderInfo?.product?.id}",
                                 fontFamily = ralewayFamily,
                                 fontWeight = FontWeight.W500,
                                 fontSize = 14.sp,
@@ -67,7 +67,7 @@ fun ProductOrderItem(
                             )
 
                             Text(
-                                text = orderInfo.time.toString(),
+                                text = orderInfo?.order?.time.toString(),
                                 fontFamily = poppinsFamily,
                                 fontWeight = FontWeight.W500,
                                 fontSize = 14.sp,
@@ -80,7 +80,7 @@ fun ProductOrderItem(
                     }
 
                     Text(
-                        text = "${orderInfo.sneakerInfo.name}",
+                        text = "${orderInfo?.product?.name}",
                         fontFamily = ralewayFamily,
                         fontWeight = FontWeight.W500,
                         fontSize = 14.sp,
@@ -95,7 +95,7 @@ fun ProductOrderItem(
                     modifier = Modifier.align(Alignment.BottomStart)
                 ) {
                     Text(
-                        text = "${orderInfo.sneakerInfo.price}",
+                        text = "${orderInfo?.product?.price}",
                         fontFamily = poppinsFamily,
                         fontWeight = FontWeight.W500,
                         fontSize = 14.sp,
@@ -106,7 +106,7 @@ fun ProductOrderItem(
                     Spacer(modifier = Modifier.width(20.dp))
 
                     Text(
-                        text = "${orderInfo.sneakerInfo.price}",
+                        text = "${orderInfo?.product?.price}",
                         fontFamily = poppinsFamily,
                         fontWeight = FontWeight.W500,
                         fontSize = 14.sp,
@@ -123,7 +123,7 @@ fun ProductOrderItem(
 //@Composable
 //private fun ProductOrderItemPreview() {
 //    ProductOrderItem(
-//        orderInfo = OrderInfo(
+//        orderInfo = OrderWithProductInfo(
 //            sneakerInfo = SneakerInfo(
 //                descr = "",
 //                name = "Nike air max 270 essential",

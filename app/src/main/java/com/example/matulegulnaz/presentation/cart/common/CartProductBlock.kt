@@ -14,7 +14,7 @@ import com.example.matulegulnaz.ui.theme.lightThemeSurfaceColor
 
 @Composable
 fun CartProductBlock(
-    img: String,
+    img: String?,
     modifier: Modifier = Modifier
 ) {
     Box(

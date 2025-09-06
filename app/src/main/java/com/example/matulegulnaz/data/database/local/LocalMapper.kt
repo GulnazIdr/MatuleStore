@@ -3,7 +3,9 @@ package com.example.matulegulnaz.data.database.local
 import com.example.matulegulnaz.data.database.local.entity.LocalCategoryEntity
 import com.example.matulegulnaz.data.database.local.entity.LocalSearchEntity
 import com.example.matulegulnaz.data.database.local.entity.LocalSneakerEntity
+import com.example.matulegulnaz.data.database.remote.dto.RemoteNotificationDto
 import com.example.matulegulnaz.data.database.remote.dto.RemoteProductDto
+import com.example.matulegulnaz.domain.notification.NotificationInfo
 import com.example.matulegulnaz.domain.product.CategoryInfo
 import com.example.matulegulnaz.domain.product.SneakerInfo
 import com.example.matulegulnaz.domain.search.SearchInfo
@@ -15,6 +17,7 @@ abstract class LocalMapper {
 
     protected fun LocalSneakerEntity.toProduct(): SneakerInfo{
         return SneakerInfo(
+            id = id,
             descr = descr,
             name = title,
             price = price,
@@ -39,6 +42,7 @@ abstract class LocalMapper {
         amount: Int
     ): SneakerInfo{
         return SneakerInfo(
+            id = id,
             descr = descr,
             name = title,
             price = price,
@@ -47,6 +51,16 @@ abstract class LocalMapper {
             details = details,
             isFavorite = isFavorite,
             amount = amount
+        )
+    }
+
+    protected fun RemoteNotificationDto.toNotification(): NotificationInfo{
+        return NotificationInfo(
+            title = title,
+            text = content,
+            time = time,
+            isRead = isRead,
+            user_id = user_id
         )
     }
 }
